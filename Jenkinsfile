@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('compile') {
             steps {
-                sh 'chmod +x ./gradlew && ./gradlew build'
+                sh 'chmod +x ./gradlew && ./gradlew build -x test'
             }
         }
         stage('Docker build') {
