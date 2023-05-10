@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Docker push') {
             steps {
-                sh 'docker push -t 172.17.0.1:5000/booklibrary'
+                sh 'docker push 172.17.0.1:5000/booklibrary'
             }
         }
         stage('Deploy UAT') {
