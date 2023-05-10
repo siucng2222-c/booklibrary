@@ -34,4 +34,10 @@ pipeline {
         }
 
     }
+
+    post {
+        always {
+            sh 'docker stop booklibrary'
+        }
+    }
 }
