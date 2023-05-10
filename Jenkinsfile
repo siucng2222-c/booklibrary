@@ -3,7 +3,7 @@ pipeline {
 
     stages {
         stage('compile') {
-            step {
+            steps {
                 sh 'chmod +x ./gradlew && ./gradlew build'
             }
         }
@@ -23,7 +23,7 @@ pipeline {
             }
         }
         stage('Acceptance Test') {
-            step {
+            steps {
                 sh './gradlew test'
                 publishHTML(target: [
                     reportDir: 'build/reports/test/',
