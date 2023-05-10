@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.11'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'io.freefair.lombok' version '8.0.1'
+}
+
+group = 'com.siucng'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.cucumber:cucumber-java:6.10.4'
+    testImplementation 'io.cucumber:cucumber-junit:6.10.4'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.7.2'
+}
+
+test {
+    // Use old (Junit 4) runner since Cucumber doesn't support Junit 5
+    useJUnit()
+}
+
+// tasks.named('test') {
+//     useJUnitPlatform()
+// }
