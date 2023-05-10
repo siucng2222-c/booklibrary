@@ -16,7 +16,7 @@ public class StepDefinitions {
     
 
     private RestTemplate restTemplate = new RestTemplate();
-    private final String url = "http://localhost:8082/books";
+    private final String url = System.getProperty("booklibrary.url");
     
     @Given("Book {string} with ISBN number {string}")
     public void book_by_with_isbn_number(String name, String isbn) {
@@ -25,6 +25,7 @@ public class StepDefinitions {
 
     @When("I store the book in library")
     public void i_store_the_book_in_library() {
+        System.out.println("*** url = " + this.url);
         this.storedBook = restTemplate.postForObject(url, newBook, Book.class);
     }
 

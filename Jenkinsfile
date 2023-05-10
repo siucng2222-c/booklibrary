@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Acceptance Test') {
             steps {
-                sh './gradlew test'
+                sh './gradlew test -Dbooklibrary.url=http://172.17.0.1:8765/books'
                 publishHTML(target: [
                     reportDir: 'build/reports/test/',
                     reportFiles: 'index.html',

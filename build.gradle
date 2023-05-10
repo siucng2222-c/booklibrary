@@ -23,6 +23,7 @@ dependencies {
 }
 
 test {
+    systemProperty 'booklibrary.url', System.getProperty('booklibrary.url')
     // Use old (Junit 4) runner since Cucumber doesn't support Junit 5
     useJUnit()
 }
