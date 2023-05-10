@@ -26,7 +26,7 @@ pipeline {
             steps {
                 sh './gradlew test -Dbooklibrary.url=http://172.17.0.1:8765/books'
                 publishHTML(target: [
-                    reportDir: 'build/reports/test/',
+                    reportDir: 'build/reports/tests/test/',
                     reportFiles: 'index.html',
                     reportName: 'Cucumber Report'
                 ])
