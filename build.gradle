@@ -14,20 +14,49 @@ repositories {
 }
 
 dependencies {
-    
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    // testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.cucumber:cucumber-java:6.10.4'
-    testImplementation 'io.cucumber:cucumber-junit:6.10.4'
+    // testImplementation 'io.cucumber:cucumber-junit:6.10.4'
     testImplementation 'org.junit.vintage:junit-vintage-engine:5.7.2'
+
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.3.0'
+
 }
 
-test {
-    systemProperty 'booklibrary.url', System.getProperty('booklibrary.url')
-    // Use old (Junit 4) runner since Cucumber doesn't support Junit 5
-    useJUnit()
-}
-
-// tasks.named('test') {
-//     useJUnitPlatform()
+// test {
+//     systemProperty 'booklibrary.url', System.getProperty('booklibrary.url')
+//     // Use old (Junit 4) runner since Cucumber doesn't support Junit 5
+//     useJUnit()
 // }
+
+tasks.named('test') {
+    // Junit5 + Mockito
+    useJUnitPlatform()
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+task cucumberCli() {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = 'io.cucumber.core.cli.Main'
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+              '--plugin', 'pretty',
+              '--plugin', 'html:build/reports/tests/cucumber/cucumber-report.html',
+              '--glue', 'com.siucng.booklibrary.cucumber',
+              'src/test/resources']
+            systemProperties = [
+                // 'booklibrary.url':'http://localhost:8082/books'
+                'booklibrary.url':System.getProperty('booklibrary.url')
+            ]
+        }
+    }
+}
+

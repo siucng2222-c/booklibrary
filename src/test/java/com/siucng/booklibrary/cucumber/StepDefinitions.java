@@ -1,9 +1,10 @@
-package com.siucng.booklibrary;
+package com.siucng.booklibrary.cucumber;
 
 import static org.junit.Assert.assertEquals;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import com.siucng.booklibrary.Book;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

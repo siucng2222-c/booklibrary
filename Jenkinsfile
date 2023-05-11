@@ -7,6 +7,16 @@ pipeline {
                 sh 'chmod +x ./gradlew && ./gradlew build -x test'
             }
         }
+        stage('unit test') {
+            steps {
+                sh './gradlew test'
+                publishHTML(target: [
+                    reportDir: 'build/reports/tests/test/',
+                    reportFiles: 'index.html',
+                    reportName: 'Unit Test Report'
+                ])
+            }
+        }
         stage('Docker build') {
             steps {
                 sh 'docker build -t 172.17.0.1:5000/booklibrary .'
@@ -24,10 +34,10 @@ pipeline {
         }
         stage('Acceptance Test') {
             steps {
-                sh './gradlew test -Dbooklibrary.url=http://172.17.0.1:8765/books'
+                sh './gradlew cucumberCli -Dbooklibrary.url=http://172.17.0.1:8765/books'
                 publishHTML(target: [
-                    reportDir: 'build/reports/tests/test/',
-                    reportFiles: 'index.html',
+                    reportDir: 'build/reports/tests/cucumber/',
+                    reportFiles: 'cucumber-report.html',
                     reportName: 'Cucumber Report'
                 ])
             }

@@ -24,8 +24,8 @@ public class BooksController {
     }
 
     @GetMapping("books")
-    public ResponseEntity<String> books() {
-        return new ResponseEntity<String>(String.valueOf(books), HttpStatus.OK);
+    public ResponseEntity<Hashtable<String, Book>> books() {
+        return new ResponseEntity<Hashtable<String, Book>>(books, HttpStatus.OK);
     }
 
     @GetMapping("books/{isbn}")
